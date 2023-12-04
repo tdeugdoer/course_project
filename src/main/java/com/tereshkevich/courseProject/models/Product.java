@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Product")
@@ -111,4 +112,25 @@ public class Product {
 
     public Musician getMusician() { return musician; }
     public void setMusician(Musician musician) { this.musician = musician; }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id && Double.compare(price, product.price) == 0 && year == product.year && Objects.equals(name, product.name) && Objects.equals(type, product.type) && Objects.equals(genre, product.genre) && Objects.equals(description, product.description) && Objects.equals(musician, product.musician) && Objects.equals(orders, product.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type, genre, price, year, description, musician, orders);
+    }
 }

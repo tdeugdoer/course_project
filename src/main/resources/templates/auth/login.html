@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <title>Login page</title>
 </head>
+
+<style>
+    div.form {
+        margin:0 auto;
+        width:20%;
+        padding-top: 30px;
+    }
+</style>
+
 <body>
 
-<form name="f" method="post" action="/process_login">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<div class="form">
+    <form name="f" method="post" action="/process_login">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-    <label for="username">Введите логин: </label>
-    <input type="text" name="username" id="username"/>
-    <br><br>
+        <label for="username">Введите логин: </label>
+        <input type="text" name="username" id="username"/>
+        <br><br>
 
-    <label for="password">Введите пароль: </label>
-    <input type="password" name="password" id="password"/>
-    <br><br>
+        <label for="password">Введите пароль: </label>
+        <input type="password" name="password" id="password"/>
+        <br><br>
 
-    <div th:if="${param.error}" style="color: red">
-        Неправильные имя или пароль
-    </div>
-    <br><br>
+        <div th:if="${param.error}" style="color: red">Неправильные имя или пароль</div>
+        <br>
 
-    <input type="submit" value="Войти"/>
-
-</form>
+        <input type="submit" value="Войти"/>
+    </form>
+</div>
 
 </body>
 </html>

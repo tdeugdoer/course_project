@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Каталог</title>
+    <title>Корзина</title>
 </head>
 
 <style>
@@ -53,7 +53,7 @@
         <td th:text="${p.getPrice()}">price</td>
         <td th:text="${p.getDescription()}">description</td>
         <td>
-            <form th:method="PATCH" th:action="@{/catalog/{id}(id=${p.getId()})}">
+            <form th:action="@{/cart/{id}(id=${p.getId()})}">
                 <input class="submit" type="submit" value="Добавить">
             </form>
         </td>

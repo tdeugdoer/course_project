@@ -31,6 +31,13 @@ public class Orders {
 
     public Orders() {}
 
+    public Orders(boolean completed, double price, Person person, List<Product> products) {
+        this.completed = completed;
+        this.price = price;
+        this.person = person;
+        this.products = products;
+    }
+
     public Orders(int id, boolean completed, double price, Person person, List<Product> products) {
         this.id = id;
         this.completed = completed;
@@ -77,5 +84,16 @@ public class Orders {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", completed=" + completed +
+                ", price=" + price +
+                ", person=" + person +
+                ", products=" + products +
+                '}';
     }
 }
