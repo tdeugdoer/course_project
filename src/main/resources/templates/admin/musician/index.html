@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Работа с продуктами</title>
+</head>
+
+<style>
+    table {
+        width: 60%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    div.add {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+    }
+
+    input.submit {
+        border: none;
+        background: none;
+    }
+
+</style>
+
+<body>
+
+<div class="add">
+    <h3>
+        <a href="/musician/new">Добавить музыканта</a>
+    </h3>
+</div>
+
+<table>
+    <tr>
+        <th width="25%">Название</th>
+        <th width="75%">Состав группы</th>
+        <th width="">Редактировать</th>
+        <th width="">Удалить</th>
+    </tr>
+    <tr th:each="m : ${musician}">
+        <td th:text="${m.getName()}">name</td>
+        <td th:text="${m.getMembers()}">musician</td>
+        <td>
+            <form th:action="@{/musician/{id}/edit(id=${m.getId()})}">
+                <input class="submit" type="submit" value="Редактировать">
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/musician/{id}(id=${m.getId()})}">
+                <input class="submit" type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>

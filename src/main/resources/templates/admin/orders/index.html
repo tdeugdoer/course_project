@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Работа с продуктами</title>
+</head>
+
+<style>
+    table {
+        width: 70%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    div.add {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+    }
+
+    input.submit {
+        border: none;
+        background: none;
+    }
+
+</style>
+
+<body>
+
+<table>
+    <tr>
+        <th width="5%">Id</th>
+        <th width="20%">Покупатель</th>
+        <th width="50%">Товары</th>
+        <th width="8%">Стоимость</th>
+        <th width="15%">Удалить</th>
+    </tr>
+    <tr th:each="o : ${orders}">
+        <td th:text="${o.getId()}">name</td>
+        <td th:text="${o.getPerson().login}">person</td>
+        <td>
+            <p th:each="p : ${o.getProducts}" th:text="${p.getName()}">productName</p>
+        </td>
+
+        <td th:text="${o.getPrice()}">price</td>
+        <td>
+            <form th:method="DELETE" th:action="@{/orders/{id}(id=${o.getId()})}">
+                <input class="submit" type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Работа с продуктами</title>
+</head>
+
+<style>
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    div.add {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+    }
+
+    input.submit {
+        border: none;
+        background: none;
+    }
+
+</style>
+
+<body>
+
+<div class="add">
+    <h3>
+        <a href="/product/new">Добавить продукт</a>
+    </h3>
+</div>
+
+<table>
+    <tr>
+        <th width="14%">Название</th>
+        <th width="14%">Музыкант</th>
+        <th width="7%">Тип</th>
+        <th width="10%">Жанр</th>
+        <th width="5%">Год</th>
+        <th width="5%">Цена</th>
+        <th>Описание</th>
+        <th width="9%">Редактировать</th>
+        <th width="6%">Удалить</th>
+    </tr>
+    <tr th:each="p : ${product}">
+        <td th:text="${p.getName()}">name</td>
+        <td th:text="${p.getMusician().getName()}">musician</td>
+        <td th:text="${p.getType()}">type</td>
+        <td th:text="${p.getGenre()}">genre</td>
+        <td th:text="${p.getYear()}">year</td>
+        <td th:text="${p.getPrice()}">price</td>
+        <td th:text="${p.getDescription()}">description</td>
+        <td>
+            <form th:action="@{/product/{id}/edit(id=${p.getId()})}">
+                <input class="submit" type="submit" value="Редактировать">
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/product/{id}(id=${p.getId()})}">
+                <input class="submit" type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
