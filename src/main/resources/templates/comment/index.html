@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Корзина</title>
+    <title>Комментарии</title>
 </head>
 
 <style>
@@ -42,13 +42,6 @@
         color: #333;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        text-align: center;
-    }
-
     th, td {
         padding: 10px;
         border: 1px solid #333;
@@ -74,8 +67,23 @@
         background-color: #555;
     }
 
+    .add {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .add a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+    }
+
     header {
         text-align: center;
+        margin-bottom: 20px;
     }
 
     a.header {
@@ -97,38 +105,30 @@
     </form>
 </header>
 
+<div class="add">
+    <h3>
+        <a href="/comment/new">Добавить комментарий</a>
+    </h3>
+</div>
+
 <table>
     <tr>
-        <th width="14%">id</th>
-        <th width="14%">Продукты</th>
-        <th width="7%">Тип</th>
-        <th width="10%">Жанр</th>
-        <th width="5%">Год</th>
-        <th width="5%">Цена</th>
-        <th>Описание</th>
-        <th width="7%">Удалить</th>
+        <th width="20%">Пользователь</th>
+        <th width="20%">Продукт</th>
+        <th>Отзыв</th>
+        <th width="8%" sec:authorize="hasAuthority('ROLE_ADMIN')">Удалить</th>
     </tr>
-    <tr th:each="p : ${orders.getProducts()}">
-        <td th:text="${p.getName()}">name</td>
-        <td th:text="${p.getMusician().getName()}">musician</td>
-        <td th:text="${p.getType()}">type</td>
-        <td th:text="${p.getGenre()}">genre</td>
-        <td th:text="${p.getYear()}">year</td>
-        <td th:text="${p.getPrice()}">price</td>
-        <td th:text="${p.getDescription()}">description</td>
-        <td>
-            <form th:method="DELETE" th:action="@{/cart/{id_prod}/{id_order}(id_prod=${p.getId()}, id_order=${orders.getId()})}">
+    <tr th:each="c : ${comment}">
+        <td th:text="${c.getPerson()}">person</td>
+        <td th:text="${c.getProduct().getName()}">product</td>
+        <td th:text="${c.getText()}">text</td>
+        <td sec:authorize="hasAuthority('ROLE_ADMIN')">
+            <form th:method="DELETE" th:action="@{/comment/{id}(id=${c.getId()})}">
                 <input class="submit" type="submit" value="Удалить">
             </form>
         </td>
     </tr>
 </table>
 
-<div class="buy">
-    <h3 th:text="'Сумма: ' + ${orders.getPrice()}">сумма</h3>
-    <form th:method="PATCH" th:action="@{/cart/{id}(id=${orders.getId()})}" th:object="${orders}">
-        <input class="buy" type="submit" value="Купить">
-    </form>
-</div>
-
 </body>
+</html>

@@ -49,7 +49,7 @@ public class ProductController {
         }
 
         productService.save(product);
-        return "redirect:/admin/product";
+        return "redirect:/product";
     }
 
     @GetMapping("/{id}/edit")
@@ -68,12 +68,12 @@ public class ProductController {
         }
 
         productService.update(id, product);
-        return "redirect:/admin/product";
+        return "redirect:/product";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         productService.delete(id);
-        return "redirect:/admin/product";
+        return "redirect:/product";
     }
 }

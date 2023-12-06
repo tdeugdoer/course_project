@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Заказы</title>
+    <title>Index</title>
 </head>
 
 <style>
@@ -15,28 +14,33 @@
     }
 
     table {
-        width: 80%;
+        width: 60%;
         border-collapse: collapse;
-        margin: 20px auto;
         text-align: center;
+        margin: auto auto;
     }
 
     th, td {
-        border: 1px solid #333;
         padding: 8px;
+        border: 1px solid #333;
     }
 
     th {
         background-color: #f2f2f2;
-        text-align: center;
     }
 
     tr:hover {
         background-color: #e6e6e6;
     }
 
-    .submit {
-        padding: 8px 16px;
+    select {
+        padding: 4px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    input[type="submit"] {
+        padding: 4px 8px;
         background-color: #333;
         color: #fff;
         border: none;
@@ -44,16 +48,13 @@
         cursor: pointer;
     }
 
-    .submit:hover {
+    input[type="submit"]:hover {
         background-color: #555;
-    }
-
-    p {
-        margin: 0;
     }
 
     header {
         text-align: center;
+        margin-bottom: 30px;
     }
 
     a.header {
@@ -77,26 +78,28 @@
 
 <table>
     <tr>
-        <th width="5%">Id</th>
-        <th width="20%">Покупатель</th>
-        <th width="50%">Товары</th>
-        <th width="8%">Стоимость</th>
-        <th width="15%">Удалить</th>
+        <th>Логин</th>
+        <th width="20%">Роль</th>
+        <th width="15%">Изменить роль</th>
+        <th width="10%">Удалить</th>
     </tr>
-    <tr th:each="o : ${orders}">
-        <td th:text="${o.getId()}">name</td>
-        <td th:text="${o.getPerson().login}">person</td>
+    <tr th:each="p : ${person}">
+        <td th:text="${p.getLogin()}">login</td>
+        <td th:text="${p.getRole()}">role</td>
         <td>
-            <p th:each="p : ${o.getProducts}" th:text="${p.getName()}">productName</p>
+            <form th:method="PATCH" th:action="@{/person/{id}(id=${p.getId()})}">
+                <input type="submit" value="Изменить">
+            </form>
         </td>
-
-        <td th:text="${o.getPrice()}">price</td>
         <td>
-            <form th:method="DELETE" th:action="@{/orders/{id}(id=${o.getId()})}">
-                <input class="submit" type="submit" value="Удалить">
+            <form th:method="DELETE" th:action="@{person/{id}(id=${p.getId()})}">
+                <input type="submit" value="Удалить">
             </form>
         </td>
     </tr>
+    </form>
+
 </table>
 
 </body>
+</html>

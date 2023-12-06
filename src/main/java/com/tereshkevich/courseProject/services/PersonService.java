@@ -36,9 +36,12 @@ public class PersonService {
     }
 
     @Transactional
-    public void update(int id, Person updatedPerson) {
-        updatedPerson.setId(id);
-        personRepository.save(updatedPerson);
+    public void changeRole(int id) {
+        Optional<Person> optPerson = personRepository.findById(id);
+        if(optPerson.isPresent()){
+            optPerson.get().changeRole();
+            personRepository.save(optPerson.get());
+        }
     }
 
     @Transactional

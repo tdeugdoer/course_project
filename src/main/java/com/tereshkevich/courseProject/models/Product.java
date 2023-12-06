@@ -2,8 +2,8 @@ package com.tereshkevich.courseProject.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.Cascade;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,15 +45,18 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Orders> orders;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Comment> comments;
     public Product() {}
 
-    public Product(String name, String type, String genre, double price, int year, String description) {
+    public Product(String name, String type, String genre, double price, int year, String description, List<Comment> comments) {
         this.name = name;
         this.type = type;
         this.genre = genre;
         this.price = price;
         this.year = year;
         this.description = description;
+        this.comments = comments;
     }
 
     public int getId() {
@@ -119,6 +122,14 @@ public class Product {
 
     public void setOrders(List<Orders> orders) {
         this.orders = orders;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

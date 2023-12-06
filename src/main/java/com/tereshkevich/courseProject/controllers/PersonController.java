@@ -5,6 +5,8 @@ import com.tereshkevich.courseProject.services.PersonService;
 import com.tereshkevich.courseProject.util.PersonValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,50 +17,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/person")
 public class PersonController {
     private final PersonService personService;
-    private final PersonValidator personValidator;
 
     @Autowired
-    public PersonController(PersonService personService, PersonValidator personValidator) {
+    public PersonController(PersonService personService) {
         this.personService = personService;
-        this.personValidator = personValidator;
     }
 
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("person", personService.findAll());
-        return "person/index";
-    }
-
-    @GetMapping("/new")
-    public String newPerson(@ModelAttribute("person") Person person) {
-        return "person/new";
-    }
-
-    @PostMapping()
-    public String create(@ModelAttribute("person") @Valid Person person,
-                         BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
-
-        if (bindingResult.hasErrors())
-            return "person/new";
-
-        personService.save(person);
-        return "redirect:/person";
-    }
-
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personService.findOne(id));
-        return "person/edit";
+        return "admin/person/index";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
-            return "person/edit";
-
-        personService.update(id, person);
+    public String update(@PathVariable("id") int id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Person person = null;
+        if(authentication.isAuthenticated()){
+            String login = authentication.getName();
+            if(personService.getPersonByLogin(login).isPresent()){
+                person = personService.getPersonByLogin(login).get();
+                if(id != person.getId()){
+                    personService.changeRole(id);
+                }
+            }
+            else return "redirect:/catalog";
+        }
         return "redirect:/person";
     }
 

@@ -46,7 +46,7 @@ public class MusicianController {
         }
 
         musicianService.save(musician);
-        return "redirect:/admin/musician";
+        return "redirect:/musician";
     }
 
     @GetMapping("/{id}/edit")
@@ -63,12 +63,12 @@ public class MusicianController {
         }
 
         musicianService.update(id, musician);
-        return "redirect:/admin/musician";
+        return "redirect:/musician";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         musicianService.delete(id);
-        return "redirect:/admin/musician";
+        return "redirect:/musician";
     }
 }

@@ -25,6 +25,6 @@ public class OrdersController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         ordersService.delete(id);
-        return "redirect:/admin/orders";
+        return "redirect:/orders";
     }
 }

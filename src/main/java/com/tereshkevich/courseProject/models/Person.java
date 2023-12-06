@@ -1,12 +1,7 @@
 package com.tereshkevich.courseProject.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -27,9 +22,6 @@ public class Person {
 
     @Column(name = "role")
     private String role;
-
-    @OneToMany(mappedBy = "person")
-    private List<Comment> comments;
 
     public Person() {}
 
@@ -69,5 +61,20 @@ public class Person {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public void changeRole() {
+        if(role.equals("ROLE_ADMIN"))
+            role = "ROLE_USER";
+        else role = "ROLE_ADMIN";
+    }
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

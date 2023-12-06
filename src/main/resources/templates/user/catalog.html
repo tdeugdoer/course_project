@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,19 +9,20 @@
 <style>
     table {
         width: 90%;
-    }
-
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px;
         margin-left: auto;
         margin-right: auto;
+        border-collapse: collapse;
     }
 
-    td {
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
         text-align: center;
         vertical-align: middle;
+    }
+
+    th {
+        background-color: #f2f2f2;
     }
 
     input.submit {
@@ -29,9 +30,72 @@
         background: none;
     }
 
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #333;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #e6e6e6;
+    }
+
+    input.submit {
+        padding: 5px 10px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    input.submit:hover {
+        background-color: #555;
+    }
+
+    header {
+        text-align: center;
+    }
+
+    a.header {
+        text-decoration: none;
+        margin: 0 20px;
+        color: #333;
+    }
 </style>
 
 <body>
+
+<header>
+    <form th:action="@{/logout}" th:method="POST">
+        <a class="header" th:href="@{/catalog}">Каталог</a>
+        <a class="header" th:href="@{/cart}">Корзина</a>
+        <a class="header" th:href="@{/comment}">Комментарии</a>
+        <a class="header" sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/product}">Панель администратора</a>
+        <input class="submit" type="submit" value="Выйти из аккаунта">
+    </form>
+</header>
 
 <table>
     <tr>
@@ -61,3 +125,4 @@
 </table>
 
 </body>
+</html>

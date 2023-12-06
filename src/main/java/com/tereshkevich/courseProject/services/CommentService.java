@@ -22,7 +22,6 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-
     @Transactional
     public void save(Comment comment) {
         commentRepository.save(comment);

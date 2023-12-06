@@ -41,7 +41,6 @@ public class CatalogController {
             else return "redirect:/catalog";
         }
         else return "redirect:/catalog";
-        System.out.println("Дошли в контроллере");
         catalogService.addProduct(productService.findOne(id), person);
         return "redirect:/catalog";
     }

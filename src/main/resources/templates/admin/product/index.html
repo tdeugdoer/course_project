@@ -1,43 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Работа с продуктами</title>
-</head>
+    <title>Список продуктов</title>
 
-<style>
-    table {
-        width: 100%;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
 
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+        .add {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    td {
-        text-align: center;
-        vertical-align: middle;
-    }
+        .add a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+        }
 
-    div.add {
-        margin-left: auto;
-        margin-right: auto;
-        width: 200px;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            text-align: center;
+        }
 
-    input.submit {
-        border: none;
-        background: none;
-    }
+        th, td {
+            padding: 10px;
+            border: 1px solid #333;
+        }
 
-</style>
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #e6e6e6;
+        }
+
+        .submit {
+            padding: 5px 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background-color: #555;
+        }
+        header {
+            text-align: center;
+        }
+
+        a.header {
+            text-decoration: none;
+            margin: 0 20px;
+            color: #333;
+        }
+    </style>
 
 <body>
+
+<header>
+    <div>
+        <a class="header" href="/catalog">Каталог</a>
+        <a class="header" href="/product">Продукты</a>
+        <a class="header" href="/musician">Музыканты</a>
+        <a class="header" href="/orders">Заказы</a>
+        <a class="header" href="/person">Аккаунты</a>
+    </div>
+</header>
 
 <div class="add">
     <h3>
@@ -77,5 +120,5 @@
         </td>
     </tr>
 </table>
-
 </body>
+</html>

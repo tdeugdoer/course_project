@@ -26,12 +26,13 @@ public class CatalogService {
         if(opt_order.isPresent()){
             Orders order = opt_order.get();
             if(!order.getProducts().contains(product)) {
+                order.setPrice(order.getPrice() + product.getPrice());
                 order.getProducts().add(product);
                 ordersRepository.save(order);
             }
         }
         else {
-            ordersRepository.save(new Orders(false, 0, person, List.of(product)));
+            ordersRepository.save(new Orders(false, product.getPrice(), person, List.of(product)));
         }
     }
 }
