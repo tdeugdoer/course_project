@@ -41,5 +41,3 @@ CREATE TABLE Comment (
      text varchar(100) NOT NULL,
      product_id int REFERENCES Product(id) ON DELETE CASCADE
 );
-
-

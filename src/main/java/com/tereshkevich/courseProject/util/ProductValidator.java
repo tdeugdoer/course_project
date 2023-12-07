@@ -24,7 +24,11 @@ public class ProductValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Product product = (Product) o;
 
-        if (productService.getProductByAllFields(product.getName(), product.getType(), product.getGenre(), product.getYear(), product.getPrice(), product.getDescription(), product.getMusician()).isPresent())
-            errors.rejectValue("description", "", "Такой продукт уже имеется. Изменить значение какого-нибудь поля");
+        if (productService.getProductByAllFields(product.getName(), product.getType(),
+                product.getGenre(), product.getYear(), product.getPrice(), product.getDescription(),
+                product.getMusician()).isPresent())
+            errors.rejectValue("description", "",
+                    "Такой продукт уже имеется. Изменить значение какого-нибудь поля");
     }
 }
+
